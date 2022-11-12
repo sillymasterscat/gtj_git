@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="cn.itcast"></context:component-scan>
+
+    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--   prefix配置到那个目录下去找     -->
+        <property name="prefix" value="/WEB-INF/pages/"></property>
+        <!--   suffix配置查找的后缀名     -->
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+    <bean id="conversionServiceFactoryBean" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean id="stringToDateConverter" class="cn.itcast.utils.StringToDateConverter"></bean>
+            </set>
+        </property>
+    </bean>
+
+    <!-- spring开启mvc对注解的支持-->
+    <mvc:annotation-driven conversion-service="conversionServiceFactoryBean"></mvc:annotation-driven>
+
+
+</beans>
